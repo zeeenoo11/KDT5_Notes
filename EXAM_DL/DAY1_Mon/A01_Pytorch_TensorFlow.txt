@@ -1,0 +1,43 @@
+
+< Deep Learning Day1 >
+1. 프로그램 소개
+1) TensorFlow
+2) PyTorch
+    - 파이썬 기반 오픈소스 딥러닝 라이브러리
+    - 개발 환경, 파이썬 버전, 운영체제에 따른 버전이 다 다르다
+
+< Deep Learning Day2 >
+1. 실행 디바이스
+- default = cpu, gpu에서 실행 가능
+- GPU 실행 = CUDA
+
+2. 파일 형식
+1) 0차원 : 스칼라
+2) 1차원 : 벡터 - (BS,)
+3) 2차원 : 메트릭스 - (BS, dim)
+4) 3차원 : 어레이 - (BS, h, w)          => 텐서 : 시계열 및 시퀀스
+5) 4차원 : 어레이 - (BS, channel, h, w)   => 텐서 : 이미지
+ - 텐서 타입
+1) 5차원 : 비디오 - (BS, frames, h, w, channels) => 비디오
+
+3. 텐서 살펴보기
+ - 클래스 : 속성 + 메서드 / __하면 밖에서 확인 불가(은닉 속성)
+ - 텐서는 메서드를 속성 형태(ex. 괄호 없이 .shape)로 속성 확인
+    - .shape, .type, .ndim(차원), .device, .data, .requires_grad(갱신여부), 
+      .pin_memory(메모리 - 필수! CUDA)
+
+ - 데이터 타입
+    - ByteTensor : 8-bit integer (Unsigned)
+    - CharTensor : 8-bit integer (Signed)
+    - ShortTensor : 16-bit integer (Signed)
+    - IntTensor : 32-bit integer (Signed)
+    - LongTensor : 64-bit integer (Signed)
+    ...
+
+ - 타입 표현
+    - dtype : torch.float32, torch.float64, torch.int32, torch.int64, torch.bool ...
+    - CPU tensor : torch.FloatTensor, torch.DoubleTensor, torch.IntTensor, torch.BoolTensor, ...
+    - GPU Tensor : torch.cuda.FloatTensor, torch.cuda.DoubleTensor, torch.cuda.BoolTensor, ...
+        - .cuda로 설정해야함
+    
+ - 
