@@ -35,7 +35,15 @@ from sklearn.metrics import (
 # [ Tips ]
 # 1. 폴더가 다른 class.py 가져오기
 # import sys
+# import sys
 # sys.path.append('../')
+
+# 2. 빡쳐서 다시 올리는 불러오는 방법
+# - 폴더 밖에 바로 위치할 때
+# import sys
+# sys.path.append('../')
+# from DL_class import scaler_model as sc
+
 
 
 class Assign_class:
@@ -122,7 +130,7 @@ class scaler_model:
             lower_bound = q1 - iqr * iqr_multiplier
             upper_bound = q3 + iqr * iqr_multiplier
             mask = (data[col] < lower_bound) | (data[col] > upper_bound)
-            outliers.append(data[col][mask].values.tolist())
+            outliers.append(data[col][mask].index.tolist())
 
         # if PLOT:
         #     plot_func.box_plot(data, outliers, filter)
