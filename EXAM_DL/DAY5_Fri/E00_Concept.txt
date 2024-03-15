@@ -1,0 +1,26 @@
+
+Data File ===> DataFrame, Numpy (전처리) ===> Tensor ===> DataSet(feature, target) ===> Dataloader
+
+
+- 에포크     : 처음부터 끝까지 학습하는 단위
+- 배치 크기  : 전체 데이터를 작은 단위로 나눈 크기 (2의 제곱 수)
+- 이터레이션 : 에포크, 
+
+- 예) 데이터 100개, 배치크기 20개, 에포크 10번 => 5개씩 10번 반복, 총 50 이터레이션(업데이트)
+
+- drop_last=bool : 배치 크기가 데이터 개수보다 적을 때 마지막 배치를 버림 (-> 검증용)
+
+[ DataSet ] 
+ : 사용자 정의 데이터셋
+- torch.utils.data.Dataset
+- 미완성 추상 클래스; 
+- 필수 오버라이딩 메서드
+    1. def __init__(self) : 전처리, 초기화 진행
+
+    2. def __len__(self) : 데이터셋의 총 개수 (샘플 수) 반환
+    
+    3. def __getitem__(self, idx) : 데이터셋의 idx 샘플 반환
+
+[ DataLoader ]
+ : 데이터 로더
+- torch.utils.data.DataLoader : 데이터
