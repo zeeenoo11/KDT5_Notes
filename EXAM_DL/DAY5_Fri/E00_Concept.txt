@@ -24,3 +24,130 @@ Data File ===> DataFrame, Numpy (전처리) ===> Tensor ===> DataSet(feature, ta
 [ DataLoader ]
  : 데이터 로더
 - torch.utils.data.DataLoader : 데이터
+
+
+
+
+
+
+
+# 실행 디바이스 설정
+DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+# 학습 횟수
+EPOCHS = 50
+#%%
+# 모델 인스턴스
+IN_DIM = my_dataset.feature.shape[1]
+OUT_DIM = len(torch.unique(my_dataset.target))  # or len(np.unique(targetNP) or tragetDF.nunique()
+
+model = CModel(IN_DIM, OUT_DIM).to(DEVICE)
+#%%
+# 손실함수
+LOSS_FUNCTION = nn.CrossEntropyLoss().to(DEVICE)
+
+# 최적화 인스턴스
+import torch.optim as optim
+OPTIMIZER = optim.Adam(model.parameters())
+
+# 스케쥴러
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+SCHEDULER = ReduceLROnPlateau(OPTIMIZER, 'min', patience=10)
+#%% md
+- 학습 및 검증관련 함수 정의
+#%%
+import torchmetrics.functional as metrics  
+#%%
+# 학습 진행함수
+def training(dataLoader):
+    # 학습모드 => 정규화, 경사하강법, 드랍아웃 등의 기능 활성화
+    model.train() 
+    
+    # 배치크기만큼 학습진행 및 저장
+    train_loss = []
+    train_acc = []
+    for cnt, (feature, target) in enumerate(dataLoader):
+        feature, target = feature.to(DEVICE), target.to(DEVICE)
+        target = target.squeeze()
+        
+        # 학습
+        pre_target = model(feature)
+
+        # 손실계산
+        loss = LOSS_FUNCTION(pre_target, target)
+        train_loss.append(loss)
+        
+        # 정확도 
+        acc = metrics.accuracy(pre_target, target, task = 'multiclass', num_classes=3)
+        train_acc.append(acc)
+        
+        # W, b 업데이트 
+        OPTIMIZER.zero_grad()
+        loss.backward()
+        OPTIMIZER.step()
+        
+        # 배치 사이즈 단위 학습 진행 메시지 출력
+        # print(f'[{cnt}] : [Train batch loss] ==> {loss}')
+
+    # 에포크 단위 학습 진행 메시지 출력
+    print(f'[Train loss] ==> {loss}    [Train Accuracy] ==> {acc}')
+    
+    return train_loss, train_acc
+#%%
+train_loss, train_acc = training(trainDL)
+#%%
+# 검증 및 평가 진행 함수
+# 매개변수 dataLoader : 검증 또는 테승트 데이터셋에 대한 Loader
+def testing(dataLoader):
+    # 학습모드 => 정규화, 경사하강법, 드랍아웃 등의 기능 비활성화
+    model.eval()
+    
+    with torch.no_grad():
+        # 배치크기만큼 학습진행
+        val_loss = []
+        val_acc = []
+        for cnt, (feature, target) in enumerate(dataLoader): 
+            feature, target = feature.to(DEVICE), target.to(DEVICE)
+            target = target.squeeze()
+            
+            # 학습
+            pre_target = model(feature)
+    
+            # 손실계산
+            loss = LOSS_FUNCTION(pre_target, target)
+            val_loss.append(loss)
+            
+            # 정확도 
+            acc = metrics.accuracy(pre_target, target, task = 'multiclass', num_classes=3)
+            val_acc.append(acc)
+            
+            # 배치 사이즈 단위 학습 진행 메시지 출력
+            # print(f'[{cnt}] : [Train batch loss] ==> {loss}')
+
+    # 에포크 단위 학습 진행 메시지 출력
+    print(f'[Valid loss] ==> {loss}    [Valid Accuracy] ==> {acc}')
+    
+    return val_loss, val_acc
+#%%
+# 예측 함수
+def predict():
+    pass
+#%% md
+[6] 학습 진행 <hr>
+#%%
+# 지정된 횟수만큼 처음부터 끝까지 학습 및 검증 진행
+# 목표 : 최적(Error 최소화)의 W, b를 가진 모델 완성
+# 
+for eps in range(EPOCHS):
+    # 학습
+    train_loss, train_acc = training(trainDL)
+    
+    # 검증
+    val_loss, val_acc = testing(validDL)
+    
+    print(f'[{eps+1}/{EPOCHS}]\nTRAIN : {sum(train_loss)/len(train_loss)}\nVAL : {sum(val_loss)/len(val_loss)}')
+    
+    # 조기 종료 기능 => 조건 : val_loss가 지정된 횟수 이상 개선이 안되면 학습 종료
+    if SCHEDULER.num_bad_epochs > SCHEDULER.patience:
+        print(f"Early stopping at epoch {eps}")
+        break
