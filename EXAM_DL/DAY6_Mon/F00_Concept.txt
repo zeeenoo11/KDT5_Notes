@@ -1,0 +1,11 @@
+
+[ 성능지표 (복습 바이브) ]
+[분류 평가 기준]
+1. Accuracy : 정확도 (TP + TN / (TP + FP + TN + FN))
+    - 정확도만 믿기엔 결과의 편향성에 취약
+2. Precision : 정밀도 (TP / (TP + FP))
+3. Recall : 재현율 (TP / (TP + FN))
+4. F1-score : 정밀도와 재현율의 조화평균 (2 * Precision * Recall / (Precision + Recall))
+
+5. (New!) 이진분류 : ROC / AUC
+6. (New!) 다중분류 : micro, macro, weighted

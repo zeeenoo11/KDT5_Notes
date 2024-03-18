@@ -1,0 +1,56 @@
+폴더 형식으로 찾아 내려가기
+[반영할 것]
+[] 모든 피처를 사용 : 
+[] 다항 회귀 사용 :
+[] 모델 파라미터 확인
+[] LogRegression(max_ , solver)
+[] 
+
+
+---------------------------------
+파일02
+1. 모듈 준비, 데이터 준비
+2. 타겟, 피처 분리
+3. train_test_split : stratify 사용
+    각 .shape 출력
+4. 모듈 인스턴스 생성 및 학습
+    - LogR(max_iter=20000, solver='liblinear')
+   학습 후 파라미터 확인
+
+6. 성적 평가 : .score() train, test
+
+7. 모델 활용 
+
+
+
+
+
+---------------------------------
+[ 데이터 준비 ]
+1. 파일 준비
+
+2. 전처리
+
+3. 데이터 분리
+
+[ 모델 점수 평가 ]
+1. 모델 선택
+Logisitict Regression
+Linear Regression
+
+2. 점수화
+model.score(X_test, y_test)
+
+3. 파라미터 확인
+.classes_ : target 종류
+feature_name_in_ : 컬럼명
+n_iter_ : 반복 횟수
+.coef_ : 가중치
+.intercept_ : 절편
+
+4. 각 분류 클래스에 대한 확률
+model.predict_proba(X_test) => 
+
+[ 모델 하이퍼파라미터 조정 ]
+1. 모델 선택
+
