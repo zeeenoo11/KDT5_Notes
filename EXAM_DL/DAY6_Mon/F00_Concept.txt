@@ -9,3 +9,4 @@
 
 5. (New!) 이진분류 : ROC / AUC
 6. (New!) 다중분류 : micro, macro, weighted
+
