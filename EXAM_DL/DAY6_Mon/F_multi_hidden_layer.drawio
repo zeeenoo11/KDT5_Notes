@@ -1,0 +1,203 @@
+<mxfile host="65bd71144e">
+    <diagram id="5OHYInAw_ak4mr4Z1Iow" name="Page-1">
+        <mxGraphModel dx="612" dy="546" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" style="locked=1;" parent="0"/>
+                <mxCell id="55" value="Deep Learning" style="swimlane;html=1;childLayout=stackLayout;startSize=20;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="20" width="2300" height="780" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="1. Load Data" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry y="20" width="200" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="2. DataSet" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="200" y="20" width="300" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="3, DataLoader" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="500" y="20" width="280" height="760" as="geometry">
+                        <mxRectangle x="320" y="20" width="40" height="730" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="82" value="Model Class" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="780" y="20" width="280" height="760" as="geometry">
+                        <mxRectangle x="480" y="20" width="40" height="1085" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="103" value="Prepare training" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="1060" y="20" width="280" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="104" value="def training" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="1340" y="20" width="240" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="def testing" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="1580" y="20" width="240" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" value="Performance Index / show plot" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="1820" y="20" width="240" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="Prediction" style="swimlane;html=1;startSize=20;" parent="55" vertex="1">
+                    <mxGeometry x="2060" y="20" width="237" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="큰 프레임" parent="0"/>
+                <mxCell id="113" value="Load Module&lt;br&gt;&lt;br&gt;fetch_openml&lt;br&gt;torch&lt;br&gt;torch.nn&lt;br&gt;random_split&lt;br&gt;torch.utils.data&lt;br&gt;np, pd&lt;br&gt;matplotlib" style="rounded=1;whiteSpace=wrap;html=1;" parent="102" vertex="1">
+                    <mxGeometry x="40" y="120" width="160" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="" style="edgeStyle=none;html=1;strokeColor=default;" parent="102" source="114" target="115" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="114" value="Load Data&lt;br&gt;&lt;br&gt;mnist = fetch_openml" style="rounded=1;whiteSpace=wrap;html=1;" parent="102" vertex="1">
+                    <mxGeometry x="40" y="401" width="130" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="125" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;" parent="102" source="115" target="120" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="200" y="566"/>
+                            <mxPoint x="200" y="470"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="115" value="feature = mnist.data&lt;br&gt;target = mnist.target" style="rounded=1;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;fontColor=default;" parent="102" vertex="1">
+                    <mxGeometry x="40" y="521" width="130" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="121" value="" style="edgeStyle=none;html=1;" parent="102" source="119" target="120" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" value="class f_dataset(ds):&lt;br&gt;&lt;br&gt;def __init__(self, f_data, t_data):&lt;br&gt;f_data = f_data.values if DF&lt;br&gt;t_data = ~~&lt;br&gt;self.feature = torch.FloatTensor(f_d)&lt;br&gt;self.target = torch.LongTensor(t_d)&lt;br&gt;&lt;br&gt;def __len__(self):&lt;br&gt;return self.target.shape[0]&lt;br&gt;&lt;br&gt;def __getitem__(self, index):&lt;br&gt;return self.feature[idx], self.target[idx]" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="102" vertex="1">
+                    <mxGeometry x="240" y="120" width="260" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="127" value="my_dataset" style="edgeStyle=none;html=1;strokeColor=default;labelBackgroundColor=default;" parent="102" source="120" target="126" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="120" value="my_dataset = f_dataset(feature, target)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;fontColor=default;labelBackgroundColor=none;" parent="102" vertex="1">
+                    <mxGeometry x="240" y="440" width="260" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="" style="edgeStyle=none;sketch=0;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;" edge="1" parent="102" source="126" target="130">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="126" value="random_split(&lt;br&gt;my_dataset, [0.7, 0.1, 0.2], &lt;br&gt;generator=seed)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=default;strokeColor=default;fontColor=default;rounded=1;labelBackgroundColor=none;arcSize=0;" parent="102" vertex="1">
+                    <mxGeometry x="250" y="600" width="240" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="150" style="edgeStyle=none;sketch=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontColor=default;" edge="1" parent="102" source="130" target="148">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1320" y="640"/>
+                            <mxPoint x="1320" y="400"/>
+                            <mxPoint x="1380" y="400"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="151" value="train_dl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="150">
+                    <mxGeometry x="0.546" y="1" relative="1" as="geometry">
+                        <mxPoint y="-59" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="130" value="DataLoader(&lt;br&gt;ds,&lt;br&gt;batch_size&lt;br&gt;)" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="560" y="600" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" style="edgeStyle=none;sketch=0;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;" edge="1" parent="102" source="133">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="530" y="640" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="133" value="train_ds, val_ds, test_ds" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="350" y="700" width="150" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="169" style="edgeStyle=none;sketch=0;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontColor=default;" edge="1" parent="102" source="137" target="166">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="940" y="570"/>
+                            <mxPoint x="1180" y="570"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="176" value="IN, hidden, OUT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="169">
+                    <mxGeometry x="0.4469" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="137" value="class ClsfiModel(nn.Model):&lt;br&gt;&lt;br&gt;def __init__(self, &lt;br&gt;IN, hidden_size,out):&lt;br&gt;super(~~).__init__()&lt;br&gt;self.input_layer = nn.Linear(&lt;br&gt;IN, hidden[0] )&lt;br&gt;self.relu = nn.ReLU()&lt;br&gt;self.hidden_layer = nn.ModuleList()&lt;br&gt;for i in range(len(hidden) -1):&lt;br&gt;self.hidden_layer.append(~~)&lt;br&gt;self.out_layer = nn.Linear( hidden[-1], OUT )&lt;br&gt;&lt;br&gt;def forward(self, x):&lt;br&gt;y = self.in_layer(x)&lt;br&gt;y = self.relu(y)&lt;br&gt;for hidden in self.hidden ~~&lt;br&gt;y = self.hidden&lt;br&gt;y = self.relu&lt;br&gt;&lt;br&gt;y = self.out&lt;br&gt;&lt;br&gt;return y" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="820" y="120" width="240" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" value="1. DEVICE&lt;br&gt;2. EPOCHS&lt;br&gt;3. IN, OUT&lt;br&gt;4. model&lt;br&gt;model = NewClassiModel(&lt;br&gt;IN, hidden, out ).to(DEVICE)&lt;br&gt;5. Loss func.&lt;br&gt;= nn.CrossEntropyLoss()&lt;br&gt;6. Optimizer&lt;br&gt;= optim.Adam(model, parameters(), lr)&lt;br&gt;7. Scheduler&lt;br&gt;= ReduceLROnPlateau(Optimizer, ~~)&lt;br&gt;8. classifying counts&lt;br&gt;CLASSES = 10" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1100" y="120" width="240" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="145" value="" style="edgeStyle=none;sketch=0;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;" edge="1" parent="102" source="143" target="144">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="def training():" style="whiteSpace=wrap;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1380" y="120" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" value="model.train()&lt;br&gt;train_report = [[], [], []]" style="whiteSpace=wrap;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1380" y="220" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="153" style="edgeStyle=none;sketch=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontColor=default;" edge="1" parent="102" source="148" target="152">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1425" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="154" value="feature" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="153">
+                    <mxGeometry x="0.2021" y="3" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="158" style="edgeStyle=none;sketch=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=default;strokeColor=default;fontColor=default;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="102" source="148" target="165">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1457.5700000000002" y="641.24" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1500" y="460"/>
+                            <mxPoint x="1500" y="670"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="159" value="target" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="158">
+                    <mxGeometry x="0.4876" y="-1" relative="1" as="geometry">
+                        <mxPoint x="2" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="148" value="for&lt;br&gt;(=1 batch)" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1400" y="360" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="156" value="" style="edgeStyle=none;sketch=0;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="102" source="152" target="165">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1430" y="640" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1430" y="670"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="157" value="pred" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="156">
+                    <mxGeometry x="-0.2621" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="152" value="model" style="whiteSpace=wrap;html=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1370" y="520" width="110" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="165" value="train result" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=default;strokeColor=default;fontColor=default;fillColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1420" y="700" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="170" style="edgeStyle=none;sketch=0;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontColor=default;shape=link;" edge="1" parent="102" source="166" target="152">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="171" value="model" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="170">
+                    <mxGeometry x="-0.5159" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="172" style="edgeStyle=none;sketch=0;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontColor=default;shape=link;" edge="1" parent="102" source="166" target="144">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="173" value="model" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;" vertex="1" connectable="0" parent="172">
+                    <mxGeometry x="-0.1935" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="166" value="NewClassModel(" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=default;" vertex="1" parent="102">
+                    <mxGeometry x="1120" y="461" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
