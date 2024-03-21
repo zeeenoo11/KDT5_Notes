@@ -60,3 +60,22 @@
 
 - 이후 이미지 정보가 담겨 있음 (00~FF)
 
+
+[ os Module ]
+[] 파일 경로 관련
+    - os.path.split() : 경로와 파일명을 분리
+    - os.path.splitext() : 확장자 분리
+    - os.path.join() : 경로와 파일명을 합침
+    
+    - os.path.dirname() : 경로만 분리
+    - os.path.basename() : 파일명만 분리
+
+    - os.path.isfile() : 파일 여부 확인
+    - os.path.isdir() : 디렉토리 여부 확인
+    
+    - os.path.exists() : 파일 존재 여부 확인
+    - os.path.getsize() : 파일 크기 확인
+
+    - os.path.abspath() : 절대 경로 확인
+    - os.path.relpath() : 상대 경로 확인
+
