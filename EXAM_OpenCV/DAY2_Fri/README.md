@@ -198,7 +198,7 @@ ds = torchvision.datasets.CIFAR10(
 
         # 데이터 다운로드
 4. 모델 설계
-
+```python
         class CNN(nn.Module):
         def __init__(self):
             super(CNN, self).__init__()
@@ -209,8 +209,8 @@ ds = torchvision.datasets.CIFAR10(
             self.fc2 = nn.Linear(64, 32)
             self.fc3 = nn.Linear(32, 10)
         
-        # shape 조정이 제일 중요 : 
-        # 32 * 32 * 3 -> 32 * 32 * 8 -> 16 * 16 * 8 -> 16 * 16 * 16 -> 8 * 8 * 16 -> 64 -> 32 -> 10
+            # shape 조정이 제일 중요 : 
+            # 32 * 32 * 3 -> 32 * 32 * 8 -> 16 * 16 * 8 -> 16 * 16 * 16 -> 8 * 8 * 16 -> 64 -> 32 -> 10
         
         def forward(self, x):
             x = F.relu(self.conv1(x))
@@ -222,9 +222,10 @@ ds = torchvision.datasets.CIFAR10(
             x = F.relu(self.fc2(x))
             x = F.log_softmax(self.fc3(x))
             return x
+```
+- 훨씬 간결한 친구가 있었다....
 
-    - 훨씬 간결한 친구가 있었다....
-        ```python
+    ```python
             # 모듈 동일
             class CNN(nn.Module):
             def __init__(self):
@@ -241,7 +242,7 @@ ds = torchvision.datasets.CIFAR10(
                 out = torch.tanh(self.fc1(out))
                 out = self.fc2(out)
                 return out
-
+```
 5. 학습 
 ```python
         # 학습 준비
