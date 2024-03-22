@@ -6,3 +6,12 @@ EXAM_DL/DAY3_Wed/data/FashionMNIST/raw/train-images-idx3-ubyte
 EXAM_DL/DAY3_Wed/data/FashionMNIST/raw/train-images-idx3-ubyte.gz
 EXAM_DL/DAY3_Wed/data/FashionMNIST/raw/train-labels-idx1-ubyte
 EXAM_DL/DAY3_Wed/data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-python.tar.gz
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/batches.meta
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/data_batch_1
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/data_batch_2
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/data_batch_3
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/data_batch_4
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/data_batch_5
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/readme.html
+EXAM_OpenCV/DATA/CIFAR_10/cifar-10-batches-py/test_batch
