@@ -92,6 +92,8 @@
 
 2. 눈 인식 클래스도 있음 : haarcascade_eye.xml
 
+![alt text](imgs/facedetect.png)
+
 ## TorchVision
 
 1. 파이토치에서 제공하는 이미지 데이터셋 패키지
