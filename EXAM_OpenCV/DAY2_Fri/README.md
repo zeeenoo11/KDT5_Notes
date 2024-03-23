@@ -3,14 +3,30 @@
 
 ## 목차
 
-[1. 그림 그리기](#그림-그리기)  
-[2. 얼굴 인식](#얼굴-인식)
+- [그림 그리기](#그림-그리기)
+- [얼굴인식](#얼굴-인식)
+- [TorchVision](#torchvision)
+- [CNN 이미지 인식](#cnn-이미지-인식)
 
+  - [구성](#구성)
+  - [모델 작성](#모델-작성)
+  - [데이터 증강 Data Augmentation](#데이터-증강-data-augmentation)
+  - [IMAGE DATASET](#image-dataset)
+  - [CNN - CIFAR10](#cnn---cifar10)
 
-
-
+- [Assignment_CNN](#assignment_cnn)
 
 ## 그림 그리기
+
+[B01_open_cv.ipynb](B01_open_cv.ipynb)
+
+0. 기본적인 cv2 사용법
+
+    - cv2.imread() : 이미지 파일을 읽어옴
+    - cv2.imshow() : 이미지를 화면에 출력
+    - cv2.waitKey() : 키보드 입력을 기다림
+    - cv2.destroyAllWindows() : 모든 창을 닫음
+    - 핑구.png
 
 1. 그림 파일 출력
 
@@ -68,6 +84,8 @@
 
 ## 얼굴 인식
 
+[B02_Face_Detection.ipynb](B02_Face_Detection.ipynb)
+
 1. 얼굴 인식 클래스 : cv2.CascadeClassifier
     - 모델 파일 : haarcascade_frontalface_default.xml
     - 얼굴 검출 : detectMultiScale(image, scaleFactor, minNeighbors, flags, minSize, maxSize)
@@ -111,11 +129,13 @@
 
     3-1. 구성  
     1) 커널/필터/마스크 : 3x3, 5x5의 이미지 위를 이동하는 행렬
+    
     2) 스트라이드 : 필터 이동 방향 및 크기; 왼쪽에서 오른쪽으로 1 픽셀 씩 이동 (3x3 or 5x5 기준 1)
     - grayscale 이미지 : 1채널
         - 가중합을 한 픽셀로 출력
     - RGB 이미지 : 3채널
         - 3개의 필터로 각 채널을 합산하여 출력
+    
     - Padding : 이미지의 테두리를 0으로 채워서 이미지 크기를 유지
         - 모서리의 이미지의 특징을 유지하기 위해 사용
         - valid : 입력과 출력 이미지의 크기가 다르게 패딩
@@ -126,6 +146,7 @@
 ### 1. 차원
 
 1) Conv1D : 1차원 데이터의 특징 추출
+
     - 시간을 축으로 좌우로만 이동
 2) Conv2D : 2차원 데이터의 특징 추출
     - 똑같이 좌우로 이동, 합성곱
@@ -137,6 +158,7 @@
 - Convolution Layer의 출력 이미지를 입력으로 받아 크기를 줄이는 역할
 - Max Pooling : 최대값을 추출
 - Average Pooling : 평균값을 추출
+
 - 보통 2x2로 설정
 
 ### 3. Flatten Layer : 1차원으로 변환
@@ -176,11 +198,6 @@
         out = self.fc2(out)  # FC2
         return out
 ```
-
-## torchvision
-
-- 파이토치에서 제공하는 이미지 데이터셋 패키지
-- ImageNet, CIFAR10, MNIST 등 다양한 데이터셋 제공
 
 ## 데이터 증강 Data Augmentation
 
@@ -347,3 +364,221 @@ ds = torchvision.datasets.CIFAR10(
         # 결과 : 
         [EPOCH: 10], Test Loss: 0.0342, Test Accuracy: 61.77 %
 ```
+
+# Assignment_CNN
+
+[Assignment_CNN.ipynb](BA01_cnn.ipynb)
+
+- MNIST 데이터셋을 사용하여 CNN 모델을 학습
+  - Data : mnist_784
+  - DataLoader : Batchs = 128
+  - Model : CNN
+  - Optimizer : Adam
+  - Loss : CrossEntropyLoss
+  - Epochs : 10
+
+## 과제 목차
+
+1. 모듈 로딩
+
+2. 데이터 준비
+
+    ```python
+    from torchvision import datasets
+    from torchvision.transforms import ToTensor, Lambda
+
+    ds = datasets.MNIST(
+        root='mnist_784',
+        train=True,
+        transform=ToTensor(),
+        download=True
+    )
+    ```
+
+   2-1. 클래스 분포 확인 : histogram 활용
+
+    ![Histogram](image.png)
+    -> 0~9까지의 숫자가 균등하게 분포, accuracy 활용 가능
+
+    2-2. DataLoader 생성
+
+    ```python
+    from torch.utils.data import DataLoader
+    Batchs = 128
+    seed = torch.Generator().manual_seed(11)
+    train_loader = DataLoader(ds, batch_size=Batchs, shuffle=True, generator=seed)
+    # test는 data_loader 할 필요 없음
+    ```
+
+3. 모델 설계
+
+    ```python
+    # 1. Load Module
+    from torch import nn
+    import torch.nn.functional as F
+
+    # 2. Create CNN Model
+    class CNN(nn.Module):
+        def __init__(self):
+            super(CNN, self).__init__()
+            self.conv1 = nn.Conv2d(1, 16, kernel_size=3, padding = 1) 
+            self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding = 1)
+            self.fc1 = nn.Linear(7 * 7 * 32, 32)
+            self.fc2 = nn.Linear(32, 10)     
+            self.max_pool2d = nn.MaxPool2d(2)
+            self.tanh = nn.Tanh()
+            
+        def forward(self, x):
+            out = self.conv1(x)                         # '1' x 28 x 28 -> '16' x 28 x 28
+            out = self.max_pool2d(self.tanh(out))       # 16 x '28' x '28' -> 16 x '14' x '14'
+            out = self.conv2(out)                       # '16' x 14 x 14 -> '32' x 14 x 14
+            out = self.max_pool2d(self.tanh(out))       # 32 x '14' x '14' -> 32 x '7' x '7'
+            out = out.view(-1, 7 * 7 * 32)              # 32 x 7 x 7 -> 1 x 1568 (= 32 x 7 x 7)
+            out = self.tanh(self.fc1(out))              # 1568 -> 32
+            out = self.fc2(out)                         # 32 -> 10
+            return out
+        ```
+
+4. 학습
+
+    ```python
+    # 1. Create training function
+    model = CNN()
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    loss_fn = nn.CrossEntropyLoss()
+
+    def training(dataloader, model, loss_fn, optimizer):
+        model.train()
+        for batch_idx, (image, label) in enumerate(dataloader):
+            optimizer.zero_grad()   # gradient 초기화
+            output = model(image)   # forward
+            loss = loss_fn(output, label)  # loss 계산
+            loss.backward()         # backword
+            optimizer.step()        # update
+            
+            if batch_idx % 100 == 0:
+                print(f"batch {batch_idx}, loss {loss.item():.5f}")
+    
+    # Function test : train_dataloader
+    # training(train_dataloader, model, loss_fn, optimizer)
+    ```
+
+5. 평가 함수 : Accuracy
+
+    ```python
+    from torchmetrics.functional import accuracy
+
+    def evaluate(model, test_dataloader):
+        model.eval()
+        with torch.no_grad():
+            for batch_idx, (image, label) in enumerate(test_dataloader):
+                output = model(image)
+                loss =  loss_fn(output, label).item()
+                acc = accuracy(output, label, task='multiclass', num_classes=10)
+                
+                # 교재 : predicts.eq(label.view_as(predicts)).sum().item()
+                #   - eq : element-wise 비교
+                #   - view_as : label을 predicts의 shape로 변환
+                
+                if batch_idx % 30 == 0:
+                    print(f"batch {batch_idx}, loss {loss:.5f}, accuracy {acc:.5f}")
+                
+        return loss, acc
+    ```
+
+    ```python
+    # Function test : test_dataloader
+    # loss, acc = evaluate(model, test_dataloader)
+    # print(f"loss {loss:.5f}, accuracy {acc:.2f}")
+    ```
+
+6. 학습 시작
+
+    ```python
+    Epochs = 10
+    model = CNN()
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    loss_fn = nn.CrossEntropyLoss()
+
+    for epoch in range(1, Epochs+1):
+        print(f"Epoch {epoch}")
+        training(train_dataloader, model, loss_fn, optimizer)
+        loss, acc = evaluate(model, test_dataloader)
+        print(f"loss {loss:.5f}, accuracy {acc:.2f}")
+        print("===========================================")
+    ```
+
+7. 예측
+
+    ```python
+    # 1. new data : 직접 그린 0~9의 그림 (28 * 28)
+    import cv2
+
+    # 2. Load Image : '../DATA/exams/Numbers/' 내의 모든 이미지 파일 검사
+    import os
+    import numpy as np
+
+    path = '../DATA/exams/Numbers/'
+    files = os.listdir(path)
+    files = [file for file in files if file.endswith('.png')]
+    ```
+
+- 기존 파일로 테스트
+
+    ```python
+    # test_dataloader 중 10개의 이미지를 가져와 예측
+    fig, ax = plt.subplots(2, 5, figsize=(15, 8))
+    for idx, (data, target) in enumerate(test_dataloader):
+        if idx == 10:
+            break
+        image = data[0].numpy().reshape(28, 28)
+        pred = model(data[0])
+        ax[idx//5, idx%5].imshow(image, cmap='gray')
+        ax[idx//5, idx%5].set_title(f"Label : {target[0]}, Predict : {pred.argmax().item()}")
+        ax[idx//5, idx%5].axis('off')
+    plt.show()
+    ```
+
+- 직접 그린 숫자로 테스트
+
+    ```python
+    # Predict 진행
+    model.eval()
+    with torch.no_grad():
+        plt.figure(figsize=(15, 5))
+        for idx, file in enumerate(files):
+            img = cv2.imread(path + file, cv2.IMREAD_GRAYSCALE)
+            img = cv2.resize(img, (28, 28))
+            # plt.imshow(img, cmap='gray')
+            # plt.show()
+            img = torch.tensor(img, dtype=torch.float32).view(1,1,28, 28)
+            output = model(img)
+            pred = output.argmax(dim = 1)
+            print(f"file : {file}, predict : {pred.item()}")
+            plt.subplot(1, len(files), idx+1)
+            plt.imshow(img[0][0], cmap='gray')
+            plt.title(f"predict : {pred.item()}")
+            plt.axis('off')
+        plt.show()
+    ```
+
+## 결과
+
+1. test_dataloader 결과
+
+    ![test_dataloader](image-1.png)
+
+2. 직접 그린 숫자 결과
+
+    ![직접 그린 숫자 결과](image-2.png)
+
+    ![흑백 반전](image-3.png)
+
+### 결과 분석
+
+- test_dataloader 결과 : 10개의 이미지를 가져와 예측
+  - 0~9까지의 숫자를 잘 예측함
+
+- 직접 그린 숫자 결과 : 0/10...
+  - 흑백 반전을 통해 예측률을 높일 수 있음! 6/10
+    - 그래도 0~5까지는 잘 예측하지만 6~9는 예측이 잘 안됨
