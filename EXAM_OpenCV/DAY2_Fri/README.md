@@ -397,7 +397,7 @@ ds = torchvision.datasets.CIFAR10(
 
    2-1. 클래스 분포 확인 : histogram 활용
 
-    ![Histogram](image.png)
+    ![Histogram](imgs/image.png)
     -> 0~9까지의 숫자가 균등하게 분포, accuracy 활용 가능
 
     2-2. DataLoader 생성
@@ -566,13 +566,13 @@ ds = torchvision.datasets.CIFAR10(
 
 1. test_dataloader 결과
 
-    ![test_dataloader](image-1.png)
+    ![test_dataloader](imgs/image-1.png)
 
 2. 직접 그린 숫자 결과
 
-    ![직접 그린 숫자 결과](image-2.png)
+    ![직접 그린 숫자 결과](imgs/image-2.png)
 
-    ![흑백 반전](image-3.png)
+    ![흑백 반전](imgs/image-3.png)
 
 ### 결과 분석
 
