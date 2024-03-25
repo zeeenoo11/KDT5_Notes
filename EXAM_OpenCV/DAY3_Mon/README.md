@@ -28,45 +28,45 @@
 
 5. Linear class :
 
-    - 모든 입력 데이터와 가중치를 곱한 후 합계 계산
-    - 전 결합층 (Fully Connected Layer) : 모든 입력 데이터가 모든 노드에 연결되어 있는 층
-    - (Batch, 1_data)가 입력 (1_data = data.view(-1) : 1차원으로 변환)
-    - 예시 : 28*28 이미지, 3 채널, 120 batch_size  
+   - 모든 입력 데이터와 가중치를 곱한 후 합계 계산
+   - 전 결합층 (Fully Connected Layer) : 모든 입력 데이터가 모든 노드에 연결되어 있는 층
+   - (Batch, 1_data)가 입력 (1_data = data.view(-1) : 1차원으로 변환)
+   - 예시 : 28\*28 이미지, 3 채널, 120 batch_size
 
-        ```markdown
-        (120, 28, 28, 3) -> (120, 2352) : 28*28*3 = 2352
-        (120, 2352) * (2352, 512) = (120, 512) : 2352개의 가중치, 512개의 노드  
-        (120, 512) \* (512, 10) = (120, 10) : 512개의 가중치, 10개의 노드  
-        (120, 10) -> (120, 10) : 10개의 노드, 10개의 클래스
-        ```
+     ```markdown
+     (120, 28, 28, 3) -> (120, 2352) : 28*28*3 = 2352
+     (120, 2352) \* (2352, 512) = (120, 512) : 2352개의 가중치, 512개의 노드  
+     (120, 512) \* (512, 10) = (120, 10) : 512개의 가중치, 10개의 노드  
+     (120, 10) -> (120, 10) : 10개의 노드, 10개의 클래스
+     ```
 
-    ===== Linear의 한계 : 선형(1차원) 정보로 이미지를 분석하기는 어렵다 =====
+   ===== Linear의 한계 : 선형(1차원) 정보로 이미지를 분석하기는 어렵다 =====
 
 6. nn.Conv2d class :
 
-    - 이미지에 픽셀과 커널의 가중치를 곱함 -> 특징 추출 - 얘는 학습하지 않음
-    - 전체 이미지에서 특정 부분만 추출 (3x3) -> 합성곱 => 얘를 학습
-    - 여러 커널을 활용 : 더 다양한 결과로 정확한 분류 가능
-                         커널의 결과 => Linear 노드
+   - 이미지에 픽셀과 커널의 가중치를 곱함 -> 특징 추출 - 얘는 학습하지 않음
+   - 전체 이미지에서 특정 부분만 추출 (3x3) -> 합성곱 => 얘를 학습
+   - 여러 커널을 활용 : 더 다양한 결과로 정확한 분류 가능
+     커널의 결과 => Linear 노드
 
-    <Conv2d의 파라미터>
+   <Conv2d의 파라미터>
 
-    1. 커널 : (3x3)을 기본으로 하는, 이동하며 특징을 스캔하는 필터
-            가중치는 커널 수만큼 존재
+   1. 커널 : (3x3)을 기본으로 하는, 이동하며 특징을 스캔하는 필터
+      가중치는 커널 수만큼 존재
 
-    2. Stride : 커널이 이동하는 간격
-               Stride = 1 : 한 칸씩 이동
+   2. Stride : 커널이 이동하는 간격
+      Stride = 1 : 한 칸씩 이동
 
-    3. Padding :
-        - 이미지 가장자리는 커널이 1번만 지나간다 => 정보 손실
-        - 따라서 가장자리에 0을 추가하는 파라미터
-        - Padding mode : zero, reflect, replicate
-        - (28 x 28) -> (30 x 30) : 2만큼 패딩
-            - valid, same : valid는 패딩 없음, same은 패딩 있음
-            - int or tuple(a, b) : a는 위아래, b는 좌우 패딩
-            - (50, 50) -> kernel=(4,2) -> (53, 51)
+   3. Padding :
+      - 이미지 가장자리는 커널이 1번만 지나간다 => 정보 손실
+      - 따라서 가장자리에 0을 추가하는 파라미터
+      - Padding mode : zero, reflect, replicate
+      - (28 x 28) -> (30 x 30) : 2만큼 패딩
+        - valid, same : valid는 패딩 없음, same은 패딩 있음
+        - int or tuple(a, b) : a는 위아래, b는 좌우 패딩
+        - (50, 50) -> kernel=(4,2) -> (53, 51)
 
-    - (120, 28, 28, 3) -> 필터 커널 (얘가 가중치 보유) => Conv2d의 노드
+   - (120, 28, 28, 3) -> 필터 커널 (얘가 가중치 보유) => Conv2d의 노드
 
 ## [ =========== 오후 수업 ============= ]
 
@@ -164,17 +164,59 @@
 
    - RandomSampler : 무작위로 데이터를 추출
 
-    ```python
-    class WeightedRandomSampler(sampler, weights, replacement=False, num_samples=None):
-      - sampler : 데이터셋
-      - weights : 가중치
-      - replacement : 중복 허용 여부 (True : 중복 허용)
-      - num_samples : 샘플 수
-    
-    >>> list(WeightedRandomSampler([0.1, 0.9, 0.4, 0.7, 3.0, 0.6], 5, replacement=True))
-    [4, 4, 1, 4, 5]
-    >>> list(WeightedRandomSampler([0.9, 0.4, 0.05, 0.2, 0.3, 0.1], 5, replacement=False))
-    [0, 1, 4, 3, 2]
-    ```
+   ```python
+   class WeightedRandomSampler(sampler, weights, replacement=False, num_samples=None):
+     - sampler : 데이터셋
+     - weights : 가중치
+     - replacement : 중복 허용 여부 (True : 중복 허용)
+     - num_samples : 샘플 수
 
-    ㅣ 활용 : 데이터 불균형 문제 해결; ramdom_split의 **stratify** 기능
+   >>> list(WeightedRandomSampler([0.1, 0.9, 0.4, 0.7, 3.0, 0.6], 5, replacement=True))
+   [4, 4, 1, 4, 5]
+   >>> list(WeightedRandomSampler([0.9, 0.4, 0.05, 0.2, 0.3, 0.1], 5, replacement=False))
+   [0, 1, 4, 3, 2]
+   ```
+
+   ㅣ 활용 : 데이터 불균형 문제 해결; ramdom_split의 **stratify** 기능
+
+## Pillow
+
+1. 이미지 처리 라이브러리
+
+   - PIL : Python Image Library
+   - Pillow : PIL의 개선 버전
+
+2. 설치 :
+
+   ```bash
+   pip install pillow
+   ```
+
+3. 사용
+
+   ```python
+    from PIL import Image   # PIL : pillow 이전 이름
+
+    img = Image.open('image.jpg')
+    img.show()
+   ```
+
+   ```python
+   # image -> tensor
+   import torchvision.transforms as transforms
+   from PIL import Image
+
+   img = Image.open('image.jpg')
+
+   to_tensor = transforms.ToTensor()
+   img_tensor = to_tensor(img)
+   ```
+
+   ```python
+    
+   ```
+
+4. 주의사항
+
+   1. openCV (cv2.imread)는 BGR로 읽어옴 => RGB로 변환 필요
+   2. PIL은 RGB로 읽어옴!
