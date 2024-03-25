@@ -213,10 +213,17 @@
    ```
 
    ```python
-    
+   # 
    ```
 
 4. 주의사항
 
    1. openCV (cv2.imread)는 BGR로 읽어옴 => RGB로 변환 필요
    2. PIL은 RGB로 읽어옴!
+
+5. torchvision과의 차이
+
+   - torchvision : 이미지 변환, 데이터셋, 모델 등을 제공하는 라이브러리
+
+![alt text](image_torchvision.png)
+
