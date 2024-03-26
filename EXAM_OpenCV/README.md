@@ -1,34 +1,39 @@
-# OpenCV Lecture Notes
-
-This repository contains lecture notes for the OpenCV course. OpenCV is a popular computer vision library that provides various functions and algorithms for image and video processing.
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-
-## Introduction
-
-In this course, we will explore the basics of OpenCV and learn how to perform various image processing tasks using this powerful library. The lecture notes cover the following topics:
-
-- Introduction to computer vision
-- Image manipulation and enhancement
-- Object detection and tracking
-- Face recognition
-- And more...
+# OpenCV
 
 ## Installation
 
-To use OpenCV, you need to install it on your system. Follow the instructions below to install OpenCV:
+```bash
+pip install opencv-python
+```
 
-1. Install Python (version X.X.X or higher)
-2. Install OpenCV using pip:
+## List of Contents
 
-    ```shell
-    pip install opencv-python
-    ```
+- [Day 1](#day1)
+- [Day 2](#day2)
 
-## Usage
+## 요약
 
-To use OpenCV in your projects, import the library and start using its functions. Here's a simple example:
+### DAY1
+
+[목요일 : OpenCV 기초](./DAY1_Thu/Readme.md)
+
+요약 : 저번 프로젝트 때 이미 해본 내용 ㅠㅠ
+
+### DAY2
+
+[금요일](./DAY2_Fri/Readme.md)
+
+요약 :
+
+1. 그림 그리기
+2. 얼굴 인식
+3. CNN 만들기
+4. 과제
+
+### DAY3
+
+[월요일](./DAY3_Mon/Readme.md)
+
+### DAY4
+
+[화요일 : 전이학습 transfer learning](./DAY4_Tue/Readme.md)

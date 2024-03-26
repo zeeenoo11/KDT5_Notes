@@ -178,3 +178,7 @@ optimizer = torch.optim.Adam(model.fc.parameters())
 cost = torch.nn.CrossEntropyLoss() # 손실 함수 정의
 print(model)
 ```
+
+### 팁
+
+- 가중치 초기화하면 좋다 : `torch.nn.init.xavier_uniform_(model.fc.weight)`
