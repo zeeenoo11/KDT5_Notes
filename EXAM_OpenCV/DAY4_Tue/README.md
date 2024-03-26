@@ -2,7 +2,17 @@
 
 ## 목차
 
-[목차](#목차)   # 테스트용
+1. [전이학습](#전이학습-transfer-learning)
+    1. [개요](#개요)
+    2. [방법](#방법)
+    3. [모델 역할 분류](#모델-역할-분류)
+    4. [장점](#장점)
+    5. [적용 조건](#적용-조건)
+    6. [예시](#예시)
+    7. [예시1 : Backbone : Resnet-50v2](#예시1--backbone--resnet-50v2)
+    8. [예시2 : Backbone : VGG16](#예시2--backbone--vgg16)
+    9. [Fine Tuning](#fine-tuning)
+2. [실습 : ResNet18](#실습--resnet18)
 
 ## 전이학습 (Transfer Learning)
 
