@@ -14,6 +14,10 @@
     9. [Fine Tuning](#fine-tuning)
 2. [실습 : ResNet18](#실습--resnet18)
 
+[오후 수업]
+
+1. [D01_Resnet_18.ipynb](#d01_resnet_18ipynb)
+
 ## 전이학습 (Transfer Learning)
 
 ### 개요
@@ -182,3 +186,11 @@ print(model)
 ### 팁
 
 - 가중치 초기화하면 좋다 : `torch.nn.init.xavier_uniform_(model.fc.weight)`
+
+## 오후 수업
+
+## D01_Resnet_18.ipynb
+
+[링크](./D01_Resnet_18.ipynb)
+
+- Resnet18 사용법 안내
